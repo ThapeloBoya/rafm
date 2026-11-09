@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - RAFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#023373;--navy-deep:#011f47;--ink:#1a2c40;--ink-soft:#4f6b8a;--sky:#7ab8e2;--sky-light:#a9d4f0;--paper:#f6fbff;--paper-alt:#e8f4fc;--white:#fff;--gold:#c8a45d;--border:rgba(122,184,226,.22);--shadow:0 24px 60px rgba(2,31,71,.12);--shadow-soft:0 12px 34px rgba(26,44,64,.08);--max:1180px;--ease:cubic-bezier(.22,.61,.36,1); }
+    *,*::before,*::after{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Inter","Segoe UI",sans-serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased} a{color:inherit} img{max-width:100%;display:block}
+    .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(1,31,71,.72),rgba(2,51,115,.62)),url("https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat;border-bottom:1px solid rgba(232,244,252,.14);transition:box-shadow .35s var(--ease)} .site-header.scrolled{box-shadow:0 10px 30px rgba(2,31,71,.18)}
+    .nav-wrap{max-width:var(--max);margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px} .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.05;color:var(--paper)} .brand strong{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.55rem;font-weight:700;letter-spacing:.04em} .brand span{font-size:.72rem;margin-top:4px;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,244,252,.78)}
+    .nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end} .nav a{text-decoration:none;padding:10px 16px;border-radius:999px;font-size:.9rem;font-weight:500;color:rgba(232,244,252,.92);transition:color .25s var(--ease),background .25s var(--ease)} .nav a:hover,.nav a:focus-visible,.nav a[aria-current="page"]{background:rgba(232,244,252,.12);color:#fff;outline:none}
+    .page-hero{position:relative;overflow:hidden;color:var(--paper);padding:112px 28px 98px;text-align:center;background:linear-gradient(180deg,rgba(1,31,71,.58) 0%,rgba(2,51,115,.66) 50%,rgba(26,44,64,.76) 100%),url("https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat} .page-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 20%,rgba(122,184,226,.16),transparent 55%)} .page-hero .inner{position:relative;max-width:860px;margin:0 auto}
+    .eyebrow{margin:0 0 14px;display:inline-flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:.74rem} .page-hero .eyebrow{color:var(--sky-light)} .page-hero .eyebrow::before,.page-hero .eyebrow::after{content:"";width:22px;height:1px;background:rgba(169,212,240,.5)}
+    h1{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.5rem,5.5vw,4.3rem);line-height:1.06;font-weight:600;text-wrap:balance} .lead{margin:20px auto 0;max-width:720px;color:rgba(232,244,252,.86);font-size:1.06rem;line-height:1.88}
+    .section{padding:96px 28px} .section-alt{background:linear-gradient(180deg,var(--paper) 0%,var(--white) 100%)} .wrap{max-width:var(--max);margin:0 auto} .center{text-align:center}
+    .section .eyebrow{color:var(--navy)} .section .eyebrow::before,.section .eyebrow::after{content:"";width:22px;height:1px;background:rgba(2,51,115,.25)} h2{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;font-weight:600;color:var(--ink);text-wrap:balance}
+    .section-lead{margin:18px auto 0;max-width:720px;color:var(--ink-soft);font-size:1.02rem;line-height:1.85} .divider{width:56px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:2px}
+    .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center} .story-copy p{margin:0 0 16px;color:var(--ink-soft);font-size:1.02rem;line-height:1.88} .story-copy p:last-child{margin-bottom:0}
+    .story-visual{position:relative;min-height:420px;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(180deg,rgba(1,31,71,.2),rgba(1,31,71,.38)),url("https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat}
+    .story-badge{position:absolute;left:22px;bottom:22px;right:22px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(232,244,252,.22);color:var(--paper)} .story-badge strong{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.65rem;font-weight:600} .story-badge span{font-size:.9rem;color:rgba(232,244,252,.84)}
+    .values-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:44px}     .card{background:var(--white);border:1px solid rgba(79,107,138,.14);border-radius:22px;padding:32px 28px;box-shadow:var(--shadow-soft);transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)} .card:hover{transform:translateY(-7px);box-shadow:var(--shadow);border-color:rgba(122,184,226,.26)}
+    .icon{width:50px;height:50px;border-radius:15px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;background:linear-gradient(135deg,rgba(2,51,115,.08),rgba(122,184,226,.16));color:var(--navy);transition:transform .35s var(--ease),background .35s var(--ease)} .card:hover .icon{transform:scale(1.06) rotate(-2deg);background:linear-gradient(135deg,rgba(2,51,115,.12),rgba(122,184,226,.22))} .icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .card h3{margin:0 0 10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.55rem;font-weight:600;color:var(--ink)} .card p{margin:0;color:var(--ink-soft);line-height:1.8}
+    .scripture{position:relative;overflow:hidden;border-radius:26px;padding:48px 38px;background:linear-gradient(135deg,var(--navy-deep),var(--navy) 55%,#1a2c40);color:var(--paper);box-shadow:0 30px 70px rgba(2,31,71,.18);text-align:center;transition:transform .45s var(--ease),box-shadow .45s var(--ease)} .scripture:hover{transform:translateY(-3px);box-shadow:0 36px 84px rgba(2,31,71,.22)} .scripture::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 15% 0%,rgba(122,184,226,.18),transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(200,164,93,.12),transparent 40%)} .scripture::after{content:"";position:absolute;inset:-40%;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.05) 50%,transparent 65%);transform:translateX(-35%);transition:transform 1.2s var(--ease);pointer-events:none} .scripture:hover::after{transform:translateX(35%)} .scripture>*{position:relative}
+    .scripture blockquote{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.35;font-weight:500} .scripture cite{display:block;margin-top:16px;font-style:normal;color:var(--sky-light);letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;font-weight:600}
+    .visit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:44px} .visit-card{padding:30px 28px;border-radius:22px;border:1px solid rgba(79,107,138,.14);background:linear-gradient(180deg,#fff,var(--paper));box-shadow:var(--shadow-soft);transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)} .visit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(122,184,226,.24)} .visit-card h3{margin:0 0 10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.55rem;font-weight:600} .visit-card p{margin:0 0 18px;color:var(--ink-soft);line-height:1.8}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 24px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.86rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid transparent;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease)} .btn:hover,.btn:focus-visible{transform:translateY(-2px);outline:none} .btn-primary{background:linear-gradient(135deg,var(--navy),#0b4aa2);color:#fff;box-shadow:0 14px 34px rgba(2,51,115,.22)} .btn-secondary{background:transparent;color:var(--navy);border-color:rgba(2,51,115,.22)}
+    .story-visual{position:relative;min-height:420px;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(180deg,rgba(1,31,71,.2),rgba(1,31,71,.38)),url("https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=1200&auto=format&fit=crop&q=80&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat;transition:transform .7s var(--ease),box-shadow .7s var(--ease)} .story-visual:hover{transform:scale(1.01);box-shadow:0 30px 70px rgba(2,31,71,.16)}
+    .site-footer{background:linear-gradient(180deg,#d7ebf8 0%,#e8f4fc 55%,#f4faff 100%);color:var(--ink);padding:72px 28px 30px;border-top:1px solid rgba(79,107,138,.12)} .footer-wrap{max-width:var(--max);margin:0 auto} .footer-grid{display:grid;grid-template-columns:1.5fr repeat(2,minmax(0,1fr));gap:34px;padding-bottom:32px;border-bottom:1px solid rgba(79,107,138,.14)}
+    .footer-logo{margin:0 0 16px;display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(2,51,115,.07);color:var(--navy);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase} .footer-brand h2{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.65rem;line-height:1.15;font-weight:600}
+    .footer-tagline{margin:16px 0 0;max-width:380px;line-height:1.8;color:var(--ink-soft);font-size:.96rem} .footer-col h3{margin:0 0 16px;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy)} .footer-col a{display:block;text-decoration:none;margin-bottom:10px;color:var(--ink-soft);font-size:.95rem;transition:color .25s var(--ease),transform .25s var(--ease)} .footer-col a:hover{color:var(--navy);transform:translateX(2px)}
+    .footer-contact{font-style:normal} .footer-contact p{margin:0 0 10px;line-height:1.7} .footer-social{display:flex;gap:10px;margin-top:20px} .footer-social a{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(255,255,255,.7);color:var(--ink);border:1px solid rgba(26,44,64,.1);box-shadow:0 6px 16px rgba(26,44,64,.04);transition:transform .3s var(--ease),background .3s var(--ease)} .footer-social a:hover{transform:translateY(-2px);background:#fff;color:var(--navy)} .footer-social svg{width:18px;height:18px;fill:currentColor} .footer-copy{margin:24px 0 0;font-size:.88rem;text-align:center;color:var(--ink-soft)}
+    .reveal{opacity:0;transform:translateY(24px) scale(.985);filter:blur(2px);transition:opacity .85s var(--ease),transform .85s var(--ease),filter .85s var(--ease)} .reveal.is-visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)} .d1{transition-delay:.08s} .d2{transition-delay:.16s}
+    .page-hero .inner > *{opacity:0;transform:translateY(16px);animation:hero-in .85s var(--ease) forwards} .page-hero .inner > :nth-child(1){animation-delay:.08s} .page-hero .inner > :nth-child(2){animation-delay:.18s} .page-hero .inner > :nth-child(3){animation-delay:.28s} @keyframes hero-in{to{opacity:1;transform:translateY(0)}}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.page-hero .inner > *{opacity:1!important;transform:none!important;filter:none!important;animation:none!important;transition:none!important}.card,.btn,.scripture,.visit-card,.story-visual,.scripture::after{transition:none!important}}
+    @media (max-width:980px){.story-grid,.values-grid,.visit-grid{grid-template-columns:1fr}.story-visual{min-height:320px}} @media (max-width:860px){.nav-wrap{flex-direction:column;align-items:flex-start;padding:16px 20px}.nav{justify-content:flex-start}.section,.page-hero{padding-left:20px;padding-right:20px}.footer-grid{grid-template-columns:1fr}.scripture{padding:36px 24px}}
+  </style>
+</head>
+<body data-admin-page="about">
+  <header class="site-header" data-admin-key="global.headerBgImage" data-admin-type="bg-header">
+    <div class="nav-wrap">
+      <a class="brand" href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#home"><strong data-admin-key="global.brand">RAFM</strong><span data-admin-key="global.brandSub">Welcome Home</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#home" data-admin-key="global.navHome">Home</a>
+        <a href="about.html" aria-current="page" data-admin-key="global.navAbout">About Us</a>
+        <a href="events-gallery.html" data-admin-key="global.navEvents">Events &amp; Gallery</a>
+        <a href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#ministries" data-admin-key="global.navMinistries">Ministries</a>
+        <a href="contact.html" data-admin-key="global.navContact">Contact</a>
+        <a href="admin.html" data-admin-key="global.navAdmin">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero" aria-labelledby="about-hero-title" data-admin-key="about.heroBgImage" data-admin-type="bg-soft">
+      <div class="inner">
+        <p class="eyebrow reveal" data-admin-key="about.heroEyebrow">About RAFM</p>
+        <h1 id="about-hero-title" class="reveal d1" data-admin-key="about.heroHeading">A Family Rooted in Christ, Growing in Faith</h1>
+        <p class="lead reveal d2" data-admin-key="about.heroLead">For 80 years, RAFM has upheld the calling to spread and fellowship in the Gospel of Jesus Christ, establish and organize the church, and live according to the pattern of the apostles.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap story-grid">
+        <div class="story-copy">
+          <p class="eyebrow reveal" data-admin-key="about.storyEyebrow">Our Story</p>
+          <h2 class="reveal d1" data-admin-key="about.storyHeading">Celebrating 80 Years of Service</h2>
+          <div class="divider reveal d1" style="margin-left:0;"></div>
+          <p class="reveal d2" style="margin-top:22px;" data-admin-key="about.storyP1">RAFM is a spiritual family committed to the Gospel of Jesus Christ. Our journey is shaped by worship, fellowship, discipleship, and faithful service — a legacy built over eight decades and carried forward with reverence and hope.</p>
+          <p class="reveal d2" data-admin-key="about.storyP2">We exist to help people encounter Christ, grow in biblical truth, and find belonging in a community that prays together, serves together, and walks in the pattern entrusted to the apostles.</p>
+          <p class="reveal d2" data-admin-key="about.storyP3">Whether you are seeking faith, returning to church, or looking for a place to serve, there is room for you in the family.</p>
+        </div>
+        <div class="story-visual reveal d1" data-admin-key="about.storyImage" data-admin-type="bg-plain">
+          <div class="story-badge"><strong data-admin-key="about.storyBadgeStrong">80 Years</strong><span data-admin-key="about.storyBadgeText">Of faithful worship, fellowship, and service in Christ.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="mission-values-title">
+      <div class="wrap">
+        <div class="center">
+          <p class="eyebrow reveal" data-admin-key="about.valuesEyebrow">Mission &amp; Values</p>
+          <h2 id="mission-values-title" class="reveal d1" data-admin-key="about.valuesHeading">What We Uphold</h2>
+          <div class="divider reveal d1"></div>
+          <p class="section-lead reveal d2" data-admin-key="about.valuesLead">Our calling is lived out through the Gospel, the life of the church, and a pattern of faithfulness that shapes how we worship, gather, and serve.</p>
+        </div>
+        <div class="values-grid">
+          <article class="card reveal">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 3H20v18H6.5A2.5 2.5 0 0 1 4 18.5v-13A2.5 2.5 0 0 1 6.5 3z"/><path d="M8 7h8M8 11h8"/></svg></span>
+            <h3 data-admin-key="about.value1Title">The Gospel</h3>
+            <p data-admin-key="about.value1Text">We are devoted to spreading and fellowshipping in the Gospel of Jesus Christ, proclaiming truth with grace and living it with conviction.</p>
+          </article>
+          <article class="card reveal d1">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.8V20h14V9.8"/><path d="M9 20v-6h6v6"/></svg></span>
+            <h3 data-admin-key="about.value2Title">The Church</h3>
+            <p data-admin-key="about.value2Text">We gather to establish and organize the church as a spiritual home — a place of worship, discipleship, care, and shared purpose.</p>
+          </article>
+          <article class="card reveal d2">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 8c2.5-2 4.8-3 7-3s4.5 1 7 3"/><path d="M7 21h10"/><path d="M8 12a4 4 0 1 0 8 0"/></svg></span>
+            <h3 data-admin-key="about.value3Title">Apostolic Pattern</h3>
+            <p data-admin-key="about.value3Text">We seek to live according to the pattern of the apostles, grounded in Scripture, prayer, fellowship, and faithful obedience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="scripture reveal">
+          <blockquote data-admin-key="about.scripture">“They devoted themselves to the apostles’ teaching and to fellowship, to the breaking of bread and to prayer.”</blockquote>
+          <cite data-admin-key="about.scriptureCite">Acts 2:42</cite>
+        </div>
+        <div class="center" style="margin-top:72px;">
+          <p class="eyebrow reveal" data-admin-key="about.visitEyebrow">Visit &amp; Connect</p>
+          <h2 class="reveal d1" data-admin-key="about.visitHeading">Find Your Place in the Family</h2>
+          <div class="divider reveal d1"></div>
+        </div>
+        <div class="visit-grid">
+          <article class="visit-card reveal">
+            <h3 data-admin-key="about.visit1Title">Plan a Visit</h3>
+            <p data-admin-key="about.visit1Text">We would be honoured to welcome you. Reach out before you come, or visit one of our locations and experience the family for yourself.</p>
+            <a class="btn btn-primary" href="contact.html#locations" data-admin-key="about.visit1Btn" data-admin-href-key="about.visit1Href">View Locations</a>
+          </article>
+          <article class="visit-card reveal d1">
+            <h3 data-admin-key="about.visit2Title">Get in Touch</h3>
+            <p data-admin-key="about.visit2Text">Have a question, need prayer, or want to learn more about RAFM? Send us a message and we will respond with care.</p>
+            <a class="btn btn-secondary" href="contact.html" data-admin-key="about.visit2Btn" data-admin-href-key="about.visit2Href">Contact Us</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-labelledby="footer-brand">
+    <div class="footer-wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-logo" data-admin-key="global.footerLogo">RAFM</p>
+          <h2 id="footer-brand" data-admin-key="global.footerHeading">Celebrating 80 Years of Service</h2>
+          <p class="footer-tagline" data-admin-key="global.footerTagline">Spreading and fellowshipping in the Gospel of Jesus Christ, establishing and organizing the church, and living according to the pattern of the apostles.</p>
+          <div class="footer-social" aria-label="Social media">
+            <a href="#" aria-label="Facebook" data-admin-key="global.facebookUrl" data-admin-type="href"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.6-1.6h1.6V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.4v3H10v8h3.5Z"/></svg></a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube" data-admin-key="global.youtubeUrl" data-admin-type="href"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></a>
+            <a href="#" aria-label="Instagram" data-admin-key="global.instagramUrl" data-admin-type="href"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.2 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a>
+          </div>
+        </div>
+        <nav class="footer-col" aria-label="Quick links"><h3 data-admin-key="global.footerQuickLinks">Quick Links</h3><a href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#home" data-admin-key="global.navHome">Home</a><a href="about.html" data-admin-key="global.navAbout">About Us</a><a href="events-gallery.html" data-admin-key="global.navEvents">Events &amp; Gallery</a><a href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#ministries" data-admin-key="global.navMinistries">Ministries</a><a href="contact.html" data-admin-key="global.navContact">Contact</a><a href="admin.html" data-admin-key="global.navAdmin">Admin</a></nav>
+        <div class="footer-col"><h3 data-admin-key="global.footerContactHeading">Contact</h3><address class="footer-contact"><p><a href="mailto:info@rafm.co.za" data-admin-key="global.contactEmail" data-admin-type="href" data-admin-prefix="mailto:">info@rafm.co.za</a></p><p><a href="tel:0800000000" data-admin-key="global.contactPhone" data-admin-type="href" data-admin-prefix="tel:">080 000 0000</a></p></address></div>
+      </div>
+      <p class="footer-copy" data-admin-key="global.footerCopy">© 2026 RAFM. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="site-admin.js"></script>
+  <script>
+    (function(){var header=document.querySelector('.site-header');var onScroll=function(){if(header)header.classList.toggle('scrolled',window.scrollY>12);};window.addEventListener('scroll',onScroll,{passive:true});onScroll();var items=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('is-visible');io.unobserve(entry.target);}});},{threshold:0.14,rootMargin:'0px 0px -40px 0px'});items.forEach(function(el){io.observe(el);});})();
+  </script>
+</body>
+</html>

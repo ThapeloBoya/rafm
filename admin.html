@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Admin - RAFM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#023373; --navy-deep:#011f47; --ink:#1a2c40; --ink-soft:#4f6b8a; --sky:#7ab8e2; --paper:#f6fbff; --paper-alt:#e8f4fc; --white:#fff; --gold:#c8a45d; --ok:#1f6b45; --err:#8b2332; --shadow-soft:0 12px 34px rgba(26,44,64,.08); --max:1240px; --ease:cubic-bezier(.22,.61,.36,1); }
+    *,*::before,*::after{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:"Inter","Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--paper),#fff 35%);line-height:1.6}
+    a{color:inherit}
+    .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(1,31,71,.72),rgba(2,51,115,.62)),url("https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat;border-bottom:1px solid rgba(232,244,252,.14)}
+    .nav-wrap{max-width:var(--max);margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.05;color:#f6fbff}.brand strong{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.55rem;font-weight:700}.brand span{font-size:.72rem;margin-top:4px;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,244,252,.78)}
+    .nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.nav a{text-decoration:none;padding:10px 16px;border-radius:999px;font-size:.9rem;font-weight:500;color:rgba(232,244,252,.92)}.nav a:hover,.nav a[aria-current="page"]{background:rgba(232,244,252,.12);color:#fff}
+    .wrap{max-width:var(--max);margin:0 auto;padding:34px 28px 72px}
+    .eyebrow{margin:0 0 10px;color:var(--navy);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:.74rem}
+    h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;color:var(--ink)} h1{margin:0;font-size:clamp(2rem,4vw,3rem);line-height:1.08} h2{margin:0 0 6px;font-size:1.65rem} h3{margin:0 0 8px;font-size:1.3rem} h4{margin:18px 0 8px;font-size:1.18rem}
+    .lead,.note{color:var(--ink-soft)} .lead{margin:12px 0 0;max-width:920px} .note{margin:0 0 16px;font-size:.94rem}
+    .notice{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(122,184,226,.12);border:1px solid rgba(122,184,226,.24);color:var(--ink-soft);font-size:.94rem}
+    .panel{margin-top:20px;background:#fff;border:1px solid rgba(79,107,138,.14);border-radius:22px;box-shadow:var(--shadow-soft);padding:24px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .tab{border:1px solid rgba(79,107,138,.18);background:#fff;color:var(--ink-soft);padding:10px 14px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+    .tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px} .full{grid-column:1/-1}
+    label{display:grid;gap:6px} label span,.lbl{font-size:.84rem;font-weight:600;color:var(--ink)}
+    input,textarea,select{width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid rgba(79,107,138,.22);border-radius:14px;padding:12px 14px}
+    textarea{min-height:96px;resize:vertical} input:focus,textarea:focus,select:focus{outline:none;border-color:rgba(2,51,115,.45);box-shadow:0 0 0 4px rgba(122,184,226,.18)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.84rem;border:1px solid transparent;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:transform .2s var(--ease)}
+    .btn:hover{transform:translateY(-1px)} .btn-primary{background:linear-gradient(135deg,var(--navy),#0b4aa2);color:#fff}
+    .btn-secondary{background:#fff;color:var(--navy);border-color:rgba(2,51,115,.22)} .btn-danger{background:#fff;color:var(--err);border-color:rgba(139,35,50,.22)}
+    .status{margin-top:12px;font-size:.94rem;color:var(--ink-soft);min-height:1.4em} .status.ok{color:var(--ok)} .status.err{color:var(--err)}
+    .hidden{display:none !important}
+    .item-card{border:1px solid rgba(79,107,138,.14);border-radius:18px;padding:16px;background:linear-gradient(180deg,#fff,var(--paper));margin-top:14px}
+    .item-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+    .item-head strong{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem}
+    .row-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .mini{min-height:36px;padding:8px 12px;font-size:.76rem}
+    .check{display:flex;align-items:center;gap:10px;margin-top:8px}.check input{width:auto}
+    .preview{margin-top:8px;border-radius:12px;overflow:hidden;background:#d7ebf8;max-width:220px;border:1px solid rgba(79,107,138,.14)}
+    .preview img{width:100%;height:120px;object-fit:cover;display:block}
+    .muted{color:var(--ink-soft);font-size:.9rem}
+    hr.sep{border:0;border-top:1px solid rgba(79,107,138,.14);margin:18px 0}
+    @media (max-width:860px){.nav-wrap{flex-direction:column;align-items:flex-start;padding:16px 20px}.wrap{padding:24px 20px 56px}.grid{grid-template-columns:1fr}.item-head{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#home"><strong>RAFM</strong><span>CMS Admin</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="Online%20Church%20Website%20Layout%20%E2%80%93%20Figma%20Make.html#home">View Site</a>
+        <a href="admin.html" aria-current="page">CMS Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="eyebrow">RAFM CMS</p>
+    <h1>Content Management</h1>
+    <p class="lead">Edit site-wide branding, navigation, footer, page content, locations, events, gallery items, images, and links. Content saves to <code>cms/data/content.json</code> via the local CMS server.</p>
+    <div class="notice"><strong>Run the CMS server first:</strong> <code>cd cms</code> then <code>node server.js</code>, open <code>http://localhost:3000/admin.html</code>. Default login: <code>admin</code> / <code>rafm2026</code>.</div>
+
+    <section class="panel" id="login-panel">
+      <h2>Admin Login</h2>
+      <form id="login-form" class="grid">
+        <label><span>Username</span><input name="username" autocomplete="username" value="admin" required></label>
+        <label><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
+        <div class="full actions"><button class="btn btn-primary" type="submit">Sign In</button></div>
+      </form>
+      <div class="status" id="login-status"></div>
+    </section>
+
+    <section id="app" class="hidden">
+      <div class="tabs" role="tablist" aria-label="CMS sections">
+        <button class="tab active" type="button" data-tab="global">Global</button>
+        <button class="tab" type="button" data-tab="home">Home</button>
+        <button class="tab" type="button" data-tab="about">About</button>
+        <button class="tab" type="button" data-tab="contact">Contact</button>
+        <button class="tab" type="button" data-tab="locations">Locations</button>
+        <button class="tab" type="button" data-tab="events">Events</button>
+        <button class="tab" type="button" data-tab="gallery">Gallery</button>
+        <button class="tab" type="button" data-tab="account">Account</button>
+      </div>
+      <div class="actions" style="margin-top:14px;">
+        <button class="btn btn-primary" id="save-all" type="button">Save All Changes</button>
+        <button class="btn btn-secondary" id="reload-all" type="button">Reload</button>
+        <button class="btn btn-secondary" id="logout" type="button">Sign Out</button>
+        <span class="muted" id="last-saved"></span>
+      </div>
+      <div class="status" id="global-status"></div>
+
+      <section class="panel tab-panel" data-panel="global">
+        <h2>Global Site Content</h2>
+        <p class="note">Shared branding, navigation labels, contact details, social links, header/footer, and backgrounds.</p>
+        <div class="grid">
+          <label><span>Brand</span><input data-path="global.brand"></label>
+          <label><span>Brand Subline</span><input data-path="global.brandSub"></label>
+          <label><span>Nav: Home</span><input data-path="global.navHome"></label>
+          <label><span>Nav: About</span><input data-path="global.navAbout"></label>
+          <label><span>Nav: Events & Gallery</span><input data-path="global.navEvents"></label>
+          <label><span>Nav: Ministries</span><input data-path="global.navMinistries"></label>
+          <label><span>Nav: Contact</span><input data-path="global.navContact"></label>
+          <label><span>Nav: Admin</span><input data-path="global.navAdmin"></label>
+          <label class="full"><span>Header Background Image URL</span><input data-path="global.headerBgImage"></label>
+          <label><span>Contact Email</span><input data-path="global.contactEmail"></label>
+          <label><span>Contact Phone (display)</span><input data-path="global.contactPhone"></label>
+          <label><span>Contact Phone (tel digits)</span><input data-path="global.contactPhoneHref"></label>
+          <label><span>YouTube URL</span><input data-path="global.youtubeUrl"></label>
+          <label><span>Facebook URL</span><input data-path="global.facebookUrl"></label>
+          <label><span>Instagram URL</span><input data-path="global.instagramUrl"></label>
+          <label><span>Footer Logo Text</span><input data-path="global.footerLogo"></label>
+          <label><span>Footer Quick Links Heading</span><input data-path="global.footerQuickLinks"></label>
+          <label><span>Footer Contact Heading</span><input data-path="global.footerContactHeading"></label>
+          <label class="full"><span>Footer Heading</span><input data-path="global.footerHeading"></label>
+          <label class="full"><span>Footer Tagline</span><textarea data-path="global.footerTagline"></textarea></label>
+          <label class="full"><span>Footer Copyright</span><input data-path="global.footerCopy"></label>
+        </div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="home">
+        <h2>Home Page</h2>
+        <p class="note">Hero, about/ministries preview, cards, CTA band, contact preview, and links on the home page.</p>
+        <div class="grid">
+          <label><span>Page Title</span><input data-path="home.pageTitle"></label>
+          <label><span>Scroll Aria Label</span><input data-path="home.scrollLabel"></label>
+          <label class="full"><span>Hero Background Image URL</span><input data-path="home.heroBgImage"></label>
+          <label><span>Welcome Label</span><input data-path="home.welcome"></label>
+          <label><span>Anniversary Badge</span><input data-path="home.anniversary"></label>
+          <label class="full"><span>Main Heading</span><input data-path="home.heading"></label>
+          <label class="full"><span>Mission Text</span><textarea data-path="home.mission"></textarea></label>
+          <label><span>Hero CTA 1 Text</span><input data-path="home.cta1"></label>
+          <label><span>Hero CTA 1 Link</span><input data-path="home.cta1Href"></label>
+          <label><span>Hero CTA 2 Text</span><input data-path="home.cta2"></label>
+          <label><span>Hero CTA 2 Link</span><input data-path="home.cta2Href"></label>
+          <label><span>Hero CTA 3 Text</span><input data-path="home.cta3"></label>
+          <label><span>Hero CTA 3 Link</span><input data-path="home.cta3Href"></label>
+          <hr class="sep full">
+          <label><span>About Eyebrow</span><input data-path="home.aboutEyebrow"></label>
+          <label><span>YouTube Button Text</span><input data-path="home.youtubeBtn"></label>
+          <label class="full"><span>About Heading</span><input data-path="home.aboutHeading"></label>
+          <label class="full"><span>About Lead</span><textarea data-path="home.aboutLead"></textarea></label>
+          <label><span>About Secondary CTA Text</span><input data-path="home.aboutCta2"></label>
+          <label><span>About Secondary CTA Link</span><input data-path="home.aboutCta2Href"></label>
+          <hr class="sep full">
+          <label><span>Ministries Eyebrow</span><input data-path="home.ministriesEyebrow"></label>
+          <label class="full"><span>Ministries Heading</span><input data-path="home.ministriesHeading"></label>
+          <label class="full"><span>Ministries Lead</span><textarea data-path="home.ministriesLead"></textarea></label>
+          <label><span>Card 1 Title</span><input data-path="home.card1Title"></label>
+          <label><span>Card 1 Button</span><input data-path="home.card1Btn"></label>
+          <label class="full"><span>Card 1 Text</span><textarea data-path="home.card1Text"></textarea></label>
+          <label class="full"><span>Card 1 Link</span><input data-path="home.card1Href"></label>
+          <label><span>Card 2 Title</span><input data-path="home.card2Title"></label>
+          <label><span>Card 2 Button</span><input data-path="home.card2Btn"></label>
+          <label class="full"><span>Card 2 Text</span><textarea data-path="home.card2Text"></textarea></label>
+          <label class="full"><span>Card 2 Link</span><input data-path="home.card2Href"></label>
+          <hr class="sep full">
+          <label><span>Band Eyebrow</span><input data-path="home.bandEyebrow"></label>
+          <label><span>Band Button</span><input data-path="home.bandBtn"></label>
+          <label class="full"><span>Band Heading</span><input data-path="home.bandHeading"></label>
+          <label class="full"><span>Band Text</span><textarea data-path="home.bandText"></textarea></label>
+          <label class="full"><span>Band Link</span><input data-path="home.bandHref"></label>
+          <hr class="sep full">
+          <label><span>Contact Eyebrow</span><input data-path="home.contactEyebrow"></label>
+          <label><span>Contact Heading</span><input data-path="home.contactHeading"></label>
+          <label><span>Email Label</span><input data-path="home.contactEmailLabel"></label>
+          <label><span>Phone Label</span><input data-path="home.contactPhoneLabel"></label>
+        </div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="about">
+        <h2>About Page</h2>
+        <p class="note">Hero, story, mission/values, scripture, visit/connect content, and images.</p>
+        <div class="grid">
+          <label><span>Page Title</span><input data-path="about.pageTitle"></label>
+          <label class="full"><span>Hero Background Image URL</span><input data-path="about.heroBgImage"></label>
+          <label><span>Hero Eyebrow</span><input data-path="about.heroEyebrow"></label>
+          <label class="full"><span>Hero Heading</span><input data-path="about.heroHeading"></label>
+          <label class="full"><span>Hero Lead</span><textarea data-path="about.heroLead"></textarea></label>
+          <hr class="sep full">
+          <label><span>Story Eyebrow</span><input data-path="about.storyEyebrow"></label>
+          <label class="full"><span>Story Heading</span><input data-path="about.storyHeading"></label>
+          <label class="full"><span>Story Paragraph 1</span><textarea data-path="about.storyP1"></textarea></label>
+          <label class="full"><span>Story Paragraph 2</span><textarea data-path="about.storyP2"></textarea></label>
+          <label class="full"><span>Story Paragraph 3</span><textarea data-path="about.storyP3"></textarea></label>
+          <label class="full"><span>Story Image URL</span><input data-path="about.storyImage"></label>
+          <label><span>Story Badge Strong</span><input data-path="about.storyBadgeStrong"></label>
+          <label><span>Story Badge Text</span><input data-path="about.storyBadgeText"></label>
+          <hr class="sep full">
+          <label><span>Values Eyebrow</span><input data-path="about.valuesEyebrow"></label>
+          <label class="full"><span>Values Heading</span><input data-path="about.valuesHeading"></label>
+          <label class="full"><span>Values Lead</span><textarea data-path="about.valuesLead"></textarea></label>
+          <label><span>Value 1 Title</span><input data-path="about.value1Title"></label><label class="full"><span>Value 1 Text</span><textarea data-path="about.value1Text"></textarea></label>
+          <label><span>Value 2 Title</span><input data-path="about.value2Title"></label><label class="full"><span>Value 2 Text</span><textarea data-path="about.value2Text"></textarea></label>
+          <label><span>Value 3 Title</span><input data-path="about.value3Title"></label><label class="full"><span>Value 3 Text</span><textarea data-path="about.value3Text"></textarea></label>
+          <hr class="sep full">
+          <label class="full"><span>Scripture</span><textarea data-path="about.scripture"></textarea></label>
+          <label><span>Scripture Citation</span><input data-path="about.scriptureCite"></label>
+          <hr class="sep full">
+          <label><span>Visit Eyebrow</span><input data-path="about.visitEyebrow"></label>
+          <label class="full"><span>Visit Heading</span><input data-path="about.visitHeading"></label>
+          <label><span>Visit Card 1 Title</span><input data-path="about.visit1Title"></label><label class="full"><span>Visit Card 1 Text</span><textarea data-path="about.visit1Text"></textarea></label>
+          <label><span>Visit Card 1 Button</span><input data-path="about.visit1Btn"></label><label><span>Visit Card 1 Link</span><input data-path="about.visit1Href"></label>
+          <label><span>Visit Card 2 Title</span><input data-path="about.visit2Title"></label><label class="full"><span>Visit Card 2 Text</span><textarea data-path="about.visit2Text"></textarea></label>
+          <label><span>Visit Card 2 Button</span><input data-path="about.visit2Btn"></label><label><span>Visit Card 2 Link</span><input data-path="about.visit2Href"></label>
+        </div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="contact">
+        <h2>Contact Page</h2>
+        <p class="note">Hero, enquiry content, form labels, location section copy, and visit band.</p>
+        <div class="grid">
+          <label><span>Page Title</span><input data-path="contact.pageTitle"></label>
+          <label class="full"><span>Hero Background Image URL</span><input data-path="contact.heroBgImage"></label>
+          <label><span>Hero Eyebrow</span><input data-path="contact.heroEyebrow"></label>
+          <label class="full"><span>Hero Heading</span><input data-path="contact.heroHeading"></label>
+          <label class="full"><span>Hero Lead</span><textarea data-path="contact.heroLead"></textarea></label>
+          <hr class="sep full">
+          <label><span>Section Eyebrow</span><input data-path="contact.sectionEyebrow"></label>
+          <label class="full"><span>Section Heading</span><input data-path="contact.sectionHeading"></label>
+          <label class="full"><span>Section Lead</span><textarea data-path="contact.sectionLead"></textarea></label>
+          <label><span>Info 1 Title</span><input data-path="contact.info1Title"></label><label><span>Info 1 Text</span><input data-path="contact.info1Text"></label>
+          <label><span>Info 2 Title</span><input data-path="contact.info2Title"></label><label><span>Info 2 Text</span><input data-path="contact.info2Text"></label>
+          <label><span>Info 3 Title</span><input data-path="contact.info3Title"></label><label class="full"><span>Info 3 Text (supports new lines)</span><textarea data-path="contact.info3Text"></textarea></label>
+          <label><span>Info 4 Title</span><input data-path="contact.info4Title"></label><label><span>Info 4 Link Text</span><input data-path="contact.info4LinkText"></label>
+          <label class="full"><span>Info 4 Text</span><textarea data-path="contact.info4Text"></textarea></label>
+          <label class="full"><span>Info 4 Link Href</span><input data-path="contact.info4LinkHref"></label>
+          <hr class="sep full">
+          <label><span>Form Heading</span><input data-path="contact.formHeading"></label>
+          <label class="full"><span>Form Lead</span><textarea data-path="contact.formLead"></textarea></label>
+          <label><span>First Name Label</span><input data-path="contact.formFirstName"></label><label><span>Last Name Label</span><input data-path="contact.formLastName"></label>
+          <label><span>Email Label</span><input data-path="contact.formEmail"></label><label><span>Phone Label</span><input data-path="contact.formPhone"></label>
+          <label><span>Interest Label</span><input data-path="contact.formInterest"></label><label><span>Message Label</span><input data-path="contact.formMessage"></label>
+          <label class="full"><span>Message Placeholder</span><input data-path="contact.formMessagePlaceholder"></label>
+          <label><span>Form Button</span><input data-path="contact.formBtn"></label>
+          <hr class="sep full">
+          <label><span>Locations Eyebrow</span><input data-path="contact.locationsEyebrow"></label>
+          <label class="full"><span>Locations Heading</span><input data-path="contact.locationsHeading"></label>
+          <label class="full"><span>Locations Lead</span><textarea data-path="contact.locationsLead"></textarea></label>
+          <label class="full"><span>Visit Band Heading</span><input data-path="contact.visitBandHeading"></label>
+          <label class="full"><span>Visit Band Text</span><textarea data-path="contact.visitBandText"></textarea></label>
+          <label><span>Visit Band Button</span><input data-path="contact.visitBandBtn"></label>
+          <label><span>Visit Band Link</span><input data-path="contact.visitBandHref"></label>
+        </div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="locations">
+        <h2>Locations</h2>
+        <p class="note">Edit/add/remove campus/location cards shown on the contact page.</p>
+        <div class="actions"><button class="btn btn-secondary" id="add-location" type="button">Add Location</button></div>
+        <div id="locations-list"></div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="events">
+        <h2>Events & Gallery Page</h2>
+        <p class="note">Page hero/copy plus events and featured event. Use image URLs or uploads.</p>
+        <h4>Page Content</h4>
+        <div class="grid">
+          <label><span>Page Title</span><input data-path="eventsPage.pageTitle"></label>
+          <label class="full"><span>Hero Background Image URL</span><input data-path="eventsPage.heroBgImage"></label>
+          <label><span>Hero Eyebrow</span><input data-path="eventsPage.heroEyebrow"></label>
+          <label class="full"><span>Hero Heading</span><input data-path="eventsPage.heroHeading"></label>
+          <label class="full"><span>Hero Lead</span><textarea data-path="eventsPage.heroLead"></textarea></label>
+          <label><span>Events Eyebrow</span><input data-path="eventsPage.eventsEyebrow"></label>
+          <label class="full"><span>Events Heading</span><input data-path="eventsPage.eventsHeading"></label>
+          <label class="full"><span>Events Lead</span><textarea data-path="eventsPage.eventsLead"></textarea></label>
+          <label><span>Gallery Eyebrow</span><input data-path="eventsPage.galleryEyebrow"></label>
+          <label class="full"><span>Gallery Heading</span><input data-path="eventsPage.galleryHeading"></label>
+          <label class="full"><span>Gallery Lead</span><textarea data-path="eventsPage.galleryLead"></textarea></label>
+          <label class="full"><span>Gallery Note</span><textarea data-path="eventsPage.galleryNote"></textarea></label>
+          <label class="full"><span>CTA Heading</span><input data-path="eventsPage.ctaHeading"></label>
+          <label class="full"><span>CTA Text</span><textarea data-path="eventsPage.ctaText"></textarea></label>
+          <label><span>CTA Button</span><input data-path="eventsPage.ctaBtn"></label>
+          <label><span>CTA Link</span><input data-path="eventsPage.ctaHref"></label>
+        </div>
+        <hr class="sep">
+        <h4>Events</h4>
+        <div class="actions"><button class="btn btn-secondary" id="add-event" type="button">Add Event</button></div>
+        <div id="events-list"></div>
+        <div class="item-card" style="margin-top:18px;">
+          <div class="item-head"><strong>Featured Event</strong><label class="check"><input type="checkbox" id="featured-published"> <span>Published</span></label></div>
+          <div class="grid">
+            <label><span>Tag</span><input data-fpath="featuredEvent.tag"></label>
+            <label><span>Button Text</span><input data-fpath="featuredEvent.cta"></label>
+            <label class="full"><span>Title</span><input data-fpath="featuredEvent.title"></label>
+            <label class="full"><span>Description</span><textarea data-fpath="featuredEvent.description"></textarea></label>
+            <label class="full"><span>Extra Note</span><textarea data-fpath="featuredEvent.note"></textarea></label>
+            <label><span>Button Link</span><input data-fpath="featuredEvent.href"></label>
+            <label class="full"><span>Image URL</span><input data-fpath="featuredEvent.image"></label>
+            <label class="full"><span>Upload Image</span><input type="file" accept="image/*" id="featured-upload"></label>
+          </div>
+          <div class="preview"><img id="featured-preview" alt=""></div>
+        </div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="gallery">
+        <h2>Gallery</h2>
+        <p class="note">Manage gallery photos, captions, categories, alt text, layout size, and order.</p>
+        <div class="actions"><button class="btn btn-secondary" id="add-gallery" type="button">Add Gallery Item</button></div>
+        <div id="gallery-list"></div>
+      </section>
+
+      <section class="panel tab-panel hidden" data-panel="account">
+        <h2>Account / Server</h2>
+        <p class="note">Change CMS credentials in <code>cms/data/auth.json</code>.</p>
+        <form id="password-form" class="grid">
+          <label><span>New Username (optional)</span><input name="username" autocomplete="username"></label>
+          <label><span>New Password</span><input name="password" type="password" autocomplete="new-password" minlength="6" required></label>
+          <div class="full actions"><button class="btn btn-primary" type="submit">Update Credentials</button></div>
+        </form>
+        <div class="status" id="account-status"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="site-admin.js"></script>
+  <script>
+    (function () {
+      var state = null;
+      var loginPanel = document.getElementById('login-panel');
+      var app = document.getElementById('app');
+      var loginStatus = document.getElementById('login-status');
+      var globalStatus = document.getElementById('global-status');
+      function msg(el, text, type) { el.textContent = text || ''; el.className = 'status' + (type ? ' ' + type : ''); }
+      async function api(url, opts) {
+        var res = await fetch(url, Object.assign({ headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }, opts || {}));
+        if (res.status === 401) throw Object.assign(new Error('Unauthorized. Please sign in again.'), { auth: true });
+        var data = await res.json().catch(function(){return{};});
+        if (!res.ok) throw new Error(data.error || 'Request failed');
+        return data;
+      }
+      function byPath(obj, path) { return path.split('.').reduce(function(o,k){ return o && o[k] != null ? o[k] : ''; }, obj); }
+      function setPath(obj, path, value) { var parts = path.split('.'), cur = obj; for (var i=0;i<parts.length-1;i++){ if (!cur[parts[i]] || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {}; cur = cur[parts[i]]; } cur[parts[parts.length-1]] = value; }
+      function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];}); }
+      function attr(s){ return esc(s).replace(/"/g,'&quot;'); }
+      function uid(prefix){ return prefix + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4); }
+
+      function showApp(show){ loginPanel.classList.toggle('hidden', show); app.classList.toggle('hidden', !show); }
+      function bindScalars() {
+        document.querySelectorAll('[data-path]').forEach(function(el){ el.value = byPath(state, el.dataset.path) || ''; });
+        document.querySelectorAll('[data-fpath]').forEach(function(el){ el.value = byPath(state, el.dataset.fpath) || ''; });
+        document.getElementById('featured-published').checked = !!(state.featuredEvent && state.featuredEvent.published !== false);
+        document.getElementById('featured-preview').src = byPath(state,'featuredEvent.image') || '';
+      }
+      function collectScalars() {
+        document.querySelectorAll('[data-path]').forEach(function(el){ setPath(state, el.dataset.path, el.value); });
+        document.querySelectorAll('[data-fpath]').forEach(function(el){ setPath(state, el.dataset.fpath, el.value); });
+        state.featuredEvent = state.featuredEvent || {}; state.featuredEvent.published = document.getElementById('featured-published').checked;
+      }
+
+      function eventCard(e, i) {
+        return '<div class="item-card" data-idx="'+i+'"><div class="item-head"><strong>' + esc(e.title||'Untitled Event') + '</strong>' +
+          '<div class="row-actions"><button class="btn btn-secondary mini" data-act="up" data-col="events" type="button">Up</button><button class="btn btn-secondary mini" data-act="down" data-col="events" type="button">Down</button><button class="btn btn-danger mini" data-act="remove" data-col="events" type="button">Remove</button></div></div>' +
+          '<div class="grid">' + l('Day','day',e.day)+l('Month','month',e.month)+l('Tag','tag',e.tag)+l('Title','title',e.title)+ta('Description','description',e.description,true)+l('Time','time',e.time)+l('Location','location',e.location)+l('Image URL','image',e.image,true) +
+          '<label class="full"><span>Upload Image</span><input type="file" accept="image/*" data-upload="events" data-idx="'+i+'"></label>' +
+          '</div><label class="check"><input type="checkbox" data-check="events" data-idx="'+i+'" data-key="published" '+(e.published!==false?'checked':'')+'> <span>Published</span></label>' +
+          (e.image?'<div class="preview"><img src="'+attr(e.image)+'" alt=""></div>':'') + '</div>';
+      }
+      function galleryCard(g, i) {
+        return '<div class="item-card" data-idx="'+i+'"><div class="item-head"><strong>' + esc(g.caption||'Gallery Item') + '</strong>' +
+          '<div class="row-actions"><button class="btn btn-secondary mini" data-act="up" data-col="gallery" type="button">Up</button><button class="btn btn-secondary mini" data-act="down" data-col="gallery" type="button">Down</button><button class="btn btn-danger mini" data-act="remove" data-col="gallery" type="button">Remove</button></div></div>' +
+          '<div class="grid">' + l('Kicker/Category','kicker',g.kicker)+l('Caption','caption',g.caption)+l('Image URL','src',g.src,true)+l('Alt Text','alt',g.alt)+ta('Subtext','sub',g.sub,true) +
+          sel('Column Span','span',g.span,[['8','8 (wide)'],['6','6 (half)'],['4','4 (third)'],['3','3 (small)']])+sel('Height','height',g.height,[['short','Short'],['tall','Tall']]) +
+          '<label class="full"><span>Upload Image</span><input type="file" accept="image/*" data-upload="gallery" data-idx="'+i+'"></label>' +
+          '</div><label class="check"><input type="checkbox" data-check="gallery" data-idx="'+i+'" data-key="featured" '+(g.featured?'checked':'')+'> <span>Featured (show subtext by default)</span></label>' +
+          (g.src?'<div class="preview"><img src="'+attr(g.src)+'" alt=""></div>':'') + '</div>';
+      }
+      function locationCard(loc, i) {
+        return '<div class="item-card" data-idx="'+i+'"><div class="item-head"><strong>' + esc(loc.name||'Location') + '</strong>' +
+          '<div class="row-actions"><button class="btn btn-secondary mini" data-act="up" data-col="locations" type="button">Up</button><button class="btn btn-secondary mini" data-act="down" data-col="locations" type="button">Down</button><button class="btn btn-danger mini" data-act="remove" data-col="locations" type="button">Remove</button></div></div>' +
+          '<div class="grid">' + l('Tag','tag',loc.tag)+l('Name','name',loc.name)+ta('Address (supports new lines)','address',loc.address,true)+l('Service Text','service',loc.service)+l('Phone','phone',loc.phone)+l('Email','email',loc.email)+l('Map URL','mapUrl',loc.mapUrl,true)+l('Button Text','btn',loc.btn) + '</div></div>';
+      }
+      function l(label,key,val,full){ return '<label'+(full?' class="full"':'')+'><span>'+esc(label)+'</span><input data-col-item data-key="'+key+'" value="'+attr(val)+'"></label>'; }
+      function ta(label,key,val,full){ return '<label'+(full?' class="full"':'')+'><span>'+esc(label)+'</span><textarea data-col-item data-key="'+key+'">'+esc(val)+'</textarea></label>'; }
+      function sel(label,key,val,opts){ return '<label><span>'+esc(label)+'</span><select data-col-item data-key="'+key+'">'+opts.map(function(o){return '<option value="'+o[0]+'" '+(String(val)==o[0]?'selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>'; }
+
+      function renderCollections() {
+        document.getElementById('events-list').innerHTML = (state.events||[]).map(eventCard).join('') || '<p class="muted">No events yet.</p>';
+        document.getElementById('gallery-list').innerHTML = (state.gallery||[]).map(galleryCard).join('') || '<p class="muted">No gallery items yet.</p>';
+        document.getElementById('locations-list').innerHTML = (state.locations||[]).map(locationCard).join('') || '<p class="muted">No locations yet.</p>';
+      }
+      function collectCollections() { collectList('events','events-list'); collectList('gallery','gallery-list'); collectList('locations','locations-list'); }
+      function collectList(col, id) {
+        var cards = document.getElementById(id).querySelectorAll('.item-card');
+        if (!state[col]) state[col] = [];
+        cards.forEach(function(card, i){
+          var item = state[col][i] = state[col][i] || {};
+          card.querySelectorAll('[data-col-item]').forEach(function(el){ item[el.dataset.key] = el.value; });
+          card.querySelectorAll('[data-check]').forEach(function(el){ item[el.dataset.key] = el.checked; });
+        });
+      }
+
+      async function load() { state = await RAFMCMS.loadContent(); bindScalars(); renderCollections(); }
+      async function save() {
+        collectScalars(); collectCollections();
+        msg(globalStatus, 'Saving...', '');
+        var data = await api('/api/content', { method:'PUT', body: JSON.stringify(state) });
+        state._updatedAt = data.updatedAt;
+        document.getElementById('last-saved').textContent = 'Saved ' + new Date(data.updatedAt).toLocaleString();
+        msg(globalStatus, 'Saved. Refresh site pages to view updated content.', 'ok');
+      }
+
+      document.querySelectorAll('.tab').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('active', b===btn);});
+          document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.toggle('hidden', p.dataset.panel !== btn.dataset.tab);});
+        });
+      });
+
+      document.getElementById('login-form').addEventListener('submit', async function(e){
+        e.preventDefault();
+        try {
+          var fd = new FormData(e.target);
+          await api('/api/login', { method:'POST', body: JSON.stringify({ username: fd.get('username'), password: fd.get('password') }) });
+          msg(loginStatus, 'Signed in.', 'ok'); showApp(true); await load();
+        } catch (err) { msg(loginStatus, err.message, 'err'); }
+      });
+      document.getElementById('save-all').addEventListener('click', function(){ save().catch(function(e){ msg(globalStatus, e.message, 'err'); if(e.auth) showApp(false); }); });
+      document.getElementById('reload-all').addEventListener('click', function(){ load().then(function(){ msg(globalStatus,'Reloaded.', 'ok'); }).catch(function(e){ msg(globalStatus,e.message,'err'); }); });
+      document.getElementById('logout').addEventListener('click', async function(){ await fetch('/api/logout',{method:'POST'}).catch(function(){}); showApp(false); msg(loginStatus,'Signed out.',''); });
+
+      document.getElementById('add-event').addEventListener('click', function(){ collectCollections(); (state.events=state.events||[]).push({id:uid('ev'),day:'01',month:'Jan',tag:'Event',title:'New Event',description:'',time:'',location:'',image:'',published:true}); renderCollections(); });
+      document.getElementById('add-gallery').addEventListener('click', function(){ collectCollections(); (state.gallery=state.gallery||[]).push({id:uid('g'),src:'',alt:'',kicker:'Gallery',caption:'New Photo',sub:'',span:'4',height:'short',featured:false}); renderCollections(); });
+      document.getElementById('add-location').addEventListener('click', function(){ collectCollections(); (state.locations=state.locations||[]).push({id:uid('loc'),tag:'Branch',name:'New Location',address:'[Street Address]\n[City, Province, Postal Code]',service:'Sunday, 09:00',phone:state.global&&state.global.contactPhone||'',email:state.global&&state.global.contactEmail||'',mapUrl:'https://maps.google.com/',btn:'Get Directions'}); renderCollections(); });
+
+      document.body.addEventListener('click', function(e){
+        var btn = e.target.closest('[data-act]'); if (!btn) return;
+        var col = btn.dataset.col, act = btn.dataset.act, card = btn.closest('.item-card'), i = Number(card.dataset.idx);
+        collectCollections();
+        if (act==='remove') state[col].splice(i,1);
+        if (act==='up' && i>0) state[col].splice(i-1,0,state[col].splice(i,1)[0]);
+        if (act==='down' && i < state[col].length-1) state[col].splice(i+1,0,state[col].splice(i,1)[0]);
+        renderCollections();
+      });
+      document.body.addEventListener('change', async function(e){
+        var f = e.target;
+        async function upload(file, onUrl) {
+          msg(globalStatus,'Uploading...',''); var fd=new FormData(); fd.append('file',file); var res=await fetch('/api/upload',{method:'POST',body:fd}); var data=await res.json(); if(!res.ok) throw new Error(data.error||'Upload failed'); onUrl(data.url); msg(globalStatus,'Image uploaded.', 'ok');
+        }
+        if (f && f.id === 'featured-upload' && f.files && f.files[0]) { try { await upload(f.files[0], function(url){ state.featuredEvent=state.featuredEvent||{}; state.featuredEvent.image=url; bindScalars(); }); } catch(err){ msg(globalStatus,err.message,'err'); } f.value=''; }
+        if (f && f.dataset && f.dataset.upload && f.files && f.files[0]) { try { collectCollections(); var col=f.dataset.upload, idx=Number(f.dataset.idx); await upload(f.files[0], function(url){ state[col][idx][col==='gallery'?'src':'image']=url; renderCollections(); }); } catch(err2){ msg(globalStatus,err2.message,'err'); } }
+      });
+
+      document.getElementById('password-form').addEventListener('submit', async function(e){
+        e.preventDefault(); var st = document.getElementById('account-status');
+        try { var fd=new FormData(e.target); await api('/api/password',{method:'POST',body:JSON.stringify({username:fd.get('username')||undefined,password:fd.get('password')})}); e.target.reset(); msg(st,'Credentials updated.', 'ok'); }
+        catch(err){ msg(st, err.message, 'err'); }
+      });
+
+      (async function init(){
+        try { var s = await fetch('/api/session').then(function(r){return r.json();}); if (s && s.authed) { showApp(true); await load(); } }
+        catch (e) { msg(loginStatus, 'CMS server not detected. Start it with: cd cms && node server.js, then open http://localhost:3000/admin.html', 'err'); }
+      })();
+    })();
+  </script>
+</body>
+</html>
